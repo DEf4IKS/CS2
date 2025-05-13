@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Видео: Mirage Smoke</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    body {
+      background: url('https://wallpaperaccess.com/full/1375540.jpg') no-repeat center center fixed;
+      background-size: cover;
+      position: relative;
+      font-family: sans-serif;
+    }
+
+    .overlay {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5); /* затемнение */
+      z-index: 1;
+    }
+
+    video {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      max-width: 90%;
+      max-height: 90%;
+      border: 2px solid #fff;
+      z-index: 2;
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay"></div>
+  <video controls autoplay loop>
+    <source src="https://assets.csnades.gg/nades/mirage-smoke-e3PhY6USgt/hq.webm">
+    Ваш браузер не поддерживает воспроизведение видео.
+  </video>
+</body>
+</html>
