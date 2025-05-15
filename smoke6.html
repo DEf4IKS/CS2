@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Mirage Smokes</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+      font-family: sans-serif;
+    }
+
+    body {
+      background: url('https://avatars.mds.yandex.net/i?id=9cee231058d67f66f1e341f89d49beac_l-5231671-images-thumbs&n=13') no-repeat center center fixed;
+      background-size: cover;
+      position: relative;
+    }
+
+    .overlay {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 1;
+    }
+
+    video {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      max-width: 90%;
+      max-height: 70%;
+      border: 2px solid #fff;
+      z-index: 2;
+    }
+
+    #nextBtn {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 12px 25px;
+      background: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      z-index: 3;
+      font-size: 16px;
+      transition: background 0.3s;
+    }
+
+    #nextBtn:hover {
+      background: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay"></div>
+  <video id="smokeVideo" controls autoplay>
+    <source src="" type="video/webm">
+    Ваш браузер не поддерживает воспроизведение видео.
+  </video>
+  <button id="nextBtn">Следующий смок</button>
+
+  <script>
+    const videoUrls = [
+      'https://assets.csnades.gg/nades/mirage-smoke-wsMc7skGQh/hq.webm',
+      'https://assets.csnades.gg/nades/mirage-smoke-auTm8L49Cc/hq.webm',
+      'https://assets.csnades.gg/nades/mirage-smoke-3sRuAaqnas/hq.webm',
+      'https://assets.csnades.gg/nades/mirage-smoke-bbb2QFbxcW/hq.webm',
+      'https://assets.csnades.gg/nades/mirage-smoke-VrvjVQyEOz/hq.webm',
+      'https://assets.csnades.gg/nades/mirage-smoke-JTmyfQvWVe/hq.webm',
+      'https://assets.csnades.gg/nades/mirage-smoke-9QreZ6rRWh/hq.webm',
+      'https://assets.csnades.gg/nades/mirage-smoke-mEvGCRjddt/hq.webm',
+      'https://assets.csnades.gg/nades/mirage-smoke-DQssWxjcaY/hq.webm',
+      'https://assets.csnades.gg/nades/mirage-smoke-eecQjUYFsz/hq.webm',
+      'https://assets.csnades.gg/nades/mirage-smoke-0wGowh8mOq/hq.webm',
+      'https://assets.csnades.gg/nades/mirage-smoke-TF9qUKYZVg/hq.webm',
+      'https://assets.csnades.gg/nades/mirage-smoke-KmFxTHmTl1/hq.webm'
+    ];
+
+    let currentVideoIndex = 0;
+    const videoElement = document.getElementById('smokeVideo');
+    const nextButton = document.getElementById('nextBtn');
+
+    function loadVideo() {
+      videoElement.src = videoUrls[currentVideoIndex];
+      videoElement.load();
+      videoElement.play();
+    }
+
+    function nextVideo() {
+      currentVideoIndex = (currentVideoIndex + 1) % videoUrls.length;
+      loadVideo();
+    }
+
+    // Инициализация первого видео
+    loadVideo();
+    
+    // Обработчик клика для кнопки
+    nextButton.addEventListener('click', nextVideo);
+
+    // Обработчик окончания видео
+    videoElement.addEventListener('ended', () => {
+      videoElement.play(); // Повторное воспроизведение
+    });
+  </script>
+</body>
+</html>
