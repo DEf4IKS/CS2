@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Видео: Mirage Smoke Fullscreen</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+      font-family: sans-serif;
+      background: url('https://avatars.mds.yandex.net/i?id=9cee231058d67f66f1e341f89d49beac_l-5231671-images-thumbs&n=13') no-repeat center center fixed;
+      background-size: cover;
+      position: relative;
+    }
+    .overlay {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 1;
+    }
+    video {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      max-width: 100vw;
+      max-height: 100vh;
+      z-index: 2;
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay"></div>
+  <video id="smokeVideo"
+         playsinline webkit-playsinline
+         controls autoplay loop>
+    <source src="https://assets.csnades.gg/nades/mirage-smoke-QwQM6wt3Yr/hq.webm" type="video/webm">
+    Ваш браузер не поддерживает воспроизведение видео.
+  </video>
+
+  <script>
+    const videoEl = document.getElementById('smokeVideo');
+
+    // Включаем fullscreen, когда видео готово к воспроизведению
+    videoEl.addEventListener('loadedmetadata', () => {
+      videoEl.play().then(() => {
+        if (videoEl.requestFullscreen) {
+          videoEl.requestFullscreen({ navigationUI: 'hide' });
+        } else if (videoEl.webkitEnterFullscreen) {
+          videoEl.webkitEnterFullscreen();
+        }
+      }).catch(console.warn);
+    });
+
+    // При смене ориентации экрана — обновляем размеры (Screen Orientation API)
+    if (screen.orientation && screen.orientation.addEventListener) {
+      screen.orientation.addEventListener('change', () => {
+        if (document.fullscreenElement || document.webkitFullscreenElement) {
+          videoEl.style.width = `${screen.width}px`;
+          videoEl.style.height = `${screen.height}px`;
+        }
+      });
+    }
+
+    // Фолбэк для старых браузеров на событие orientationchange
+    window.addEventListener('orientationchange', () => {
+      if (document.fullscreenElement || document.webkitFullscreenElement) {
+        videoEl.style.width = `${window.innerWidth}px`;
+        videoEl.style.height = `${window.innerHeight}px`;
+      }
+    });
+
+    // Если пользователь вручную выходит из fullscreen — можно попытаться вернуть
+    document.addEventListener('fullscreenchange', () => {
+      if (!document.fullscreenElement) {
+        // при необходимости повторно запросить fullscreen
+        if (videoEl.requestFullscreen) {
+          videoEl.requestFullscreen({ navigationUI: 'hide' });
+        } else if (videoEl.webkitEnterFullscreen) {
+          videoEl.webkitEnterFullscreen();
+        }
+      }
+    });
+  </script>
+</body>
+</html>
